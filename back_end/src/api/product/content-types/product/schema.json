@@ -1,0 +1,76 @@
+{
+  "kind": "collectionType",
+  "collectionName": "products",
+  "info": {
+    "singularName": "product",
+    "pluralName": "products",
+    "displayName": "product",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "product_name": {
+      "type": "string",
+      "required": true,
+      "minLength": 3,
+      "maxLength": 50
+    },
+    "product_description": {
+      "type": "richtext",
+      "required": false
+    },
+    "category_id": {
+      "type": "integer",
+      "required": false
+    },
+    "price": {
+      "type": "integer",
+      "required": true
+    },
+    "inventory_items": {
+      "type": "integer",
+      "required": false
+    },
+    "image_1": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "image_2": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "image_3": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "category": {
+      "type": "enumeration",
+      "enum": [
+        "mobile",
+        "accessories",
+        "wireless",
+        "sound"
+      ],
+      "required": false
+    },
+    "slug": {
+      "type": "string",
+      "required": true
+    }
+  }
+}
