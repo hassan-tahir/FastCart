@@ -18,7 +18,7 @@ function products(props) {
                     <img
                       alt="ecommerce"
                       className="object-cover object-center w-full h-full block"
-                      src={product.attributes.image_1.data && product.attributes.image_1.data.attributes.name}
+                      src={product.attributes.image}
                     />
                   </a>
                   <div className="mt-4">

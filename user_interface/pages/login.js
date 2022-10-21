@@ -18,8 +18,12 @@ function Login() {
 
   const [alert, setAlert] = useState(["", ""]);
 
-  const { setUser, doLogin, loggingIn, setLoggingIn, user } = useContext(UserContext);
-  if(user)
+  const { setUser, doLogin, loggingIn, setLoggingIn, user, admin } = useContext(UserContext);
+  if(admin && user)
+  {
+    router.push('/admin')
+  }
+  if(user && !admin)
   {
     router.push('/user')
   }

@@ -1,6 +1,8 @@
-import React from "react";
+import {React, useContext} from "react";
 import {useRouter} from 'next/router'
+import {UserContext} from '../../context/user'
 function Slug({product, addToCart}) {
+  const {user} = useContext(UserContext)
     const router = useRouter()
     const {slug} = router.query
     const color = "#f0661f"
@@ -12,11 +14,11 @@ function Slug({product, addToCart}) {
             <img
               alt="ecommerce"
               className="sm:w-1/2 sm:h-auto h-64 object-cover object-center rounded"
-              src={product.attributes.image_1.data && product.attributes.image_1.data.attributes.name}
+              src={product.attributes.image}
             />
             <div className="sm:w-1/2 w-full sm:pl-10 lg:py-6 mt-6 lg:mt-0">
               <h2 className="text-sm title-font text-gray-500 tracking-widest">
-                BRAND NAME
+                {product.attributes.category}
               </h2>
               <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">
                 {product.attributes.product_name}
@@ -120,21 +122,16 @@ function Slug({product, addToCart}) {
                 </span>
               </div>
               <p className="leading-relaxed">
-                Fam locavore kickstarter distillery. Mixtape chillwave tumeric
-                sriracha taximy chia microdosing tilde DIY. XOXO fam indxgo
-                juiceramps cornhole raw denim forage brooklyn. Everyday carry +1
-                seitan poutine tumeric. Gastropub blue bottle austin listicle
-                pour-over, neutra jean shorts keytar banjo tattooed umami
-                cardigan.
+                {product.attributes.product_description}
               </p>
               <div className="flex mt-10">
                 <span className="title-font font-medium text-2xl text-gray-900">
                   Rs. {product.attributes.price}
                 </span>
-                <button className="flex ml-auto text-white border-0 py-2 px-3 focus:outline-none bg-orange-500 text-sm font-medium hover:bg-orange-600 rounded" onClick={()=>addToCart(slug, 1, product.attributes.price)}>
+                <button className="flex ml-auto text-white border-0 py-2 px-3 focus:outline-none bg-orange-500 text-sm font-medium hover:bg-orange-600 rounded" onClick={()=>user?addToCart(slug, 1, product.attributes.price):router.push('/ login')}>
                   Add to Cart
                 </button>
-                <button className="flex ml-auto text-white border-0 py-2 px-3 focus:outline-none rounded bg-orange-500 text-sm font-medium hover:bg-orange-600" onClick={()=>router.push('/checkout')}>
+                <button className="flex ml-auto text-white border-0 py-2 px-3 focus:outline-none rounded bg-orange-500 text-sm font-medium hover:bg-orange-600" onClick={()=>user?router.push('/checkout'):router.push('/login')}>
                   Buy Now
                 </button>
               </div>

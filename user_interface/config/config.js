@@ -1,0 +1,5 @@
+export const baseUri = process.env.NEXT_PUBLIC_API_URL;
+export const appUrl = process.env.NEXT_PUBLIC_URL;
+
+export const token =
+  "Bearer b730f65dc102cef4d448a275393cf999ec567fcf46bb45278b33c3bee723c3b5471d5646a8280720f0e402c127e2e5e6ae955215bb5146ec534ec7a13ecaa71a5a35802b39f228df029593fdf88d42ff7aa706a50bd66a17582f8ea826d95fbd2b1a37d5a1439106d13965669c91cb35c38e0227e4b920e8cac44b800ff1e596";

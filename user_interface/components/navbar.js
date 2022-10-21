@@ -1,8 +1,10 @@
 import { React, useEffect, useContext } from "react";
 import Link from "next/link";
 import { UserContext } from "../context/user";
+import AdminPanelSettingsOutlinedIcon from '@mui/icons-material/AdminPanelSettingsOutlined';
+import SettingsSuggestOutlinedIcon from '@mui/icons-material/SettingsSuggestOutlined';
 const Navbar = ({ cart }) => {
-  const { user, checkLogin, doLogout } = useContext(UserContext);
+  const { user, admin, checkLogin, doLogout } = useContext(UserContext);
   useEffect(() => {
     async function func() {
       const res = await checkLogin();
@@ -30,29 +32,48 @@ const Navbar = ({ cart }) => {
           <Link href="/categories">
             <a className="mr-5 hover:text-gray-900">Categories</a>
           </Link>
-          <Link href="/cart">
-            <a className="mr-5 hover:text-gray-900">Cart({cart.length})</a>
+          {(!admin && user) && (
+            <Link href="/cart">
+              <a className="mr-5 hover:text-gray-900">Cart({cart.length})</a>
+            </Link>
+          )}
+          {user && (
+            <Link href="/user">
+              <a className="mr-5 hover:text-orange-600">
+                Profile
+                {!admin && (
+                  <svg
+                    style={{ display: "inline" }}
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-6 h-6"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
+                    />
+                  </svg>
+                )}
+                {
+                  admin && <AdminPanelSettingsOutlinedIcon />
+                }
+              </a>
+            </Link>
+          )}
+          {(user && admin) && 
+          <Link href="/admin">
+            <button
+              className="mr-5 inline-flex text-white border-0 py-1 px-2 md:px-4 focus:outline-none rounded text-md my-2"
+              style={{ backgroundColor: "#f0661f" }}
+            >
+              Admin <SettingsSuggestOutlinedIcon />
+            </button>
           </Link>
-          { user &&
-          <Link href="/user">
-            <a className="mr-5 hover:text-orange-600">
-              Profile
-              <svg style={{"display":"inline"}}
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="w-6 h-6"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
-                />
-              </svg>
-            </a>
-          </Link> }
+          }
         </nav>
         {!user && (
           <Link href="/login">

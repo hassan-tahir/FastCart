@@ -17,6 +17,7 @@ export default async (req, res) => {
           user: response.data.username,
           email: response.data.email,
           id: response.data.id,
+          isAdmin: response.data.isAdmin,
         });
       })
       .catch((error) => {

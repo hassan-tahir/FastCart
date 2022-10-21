@@ -22,10 +22,6 @@
       "type": "richtext",
       "required": false
     },
-    "category_id": {
-      "type": "integer",
-      "required": false
-    },
     "price": {
       "type": "integer",
       "required": true
@@ -34,43 +30,15 @@
       "type": "integer",
       "required": false
     },
-    "image_1": {
-      "type": "media",
-      "multiple": false,
-      "required": false,
-      "allowedTypes": [
-        "images"
-      ]
-    },
-    "image_2": {
-      "type": "media",
-      "multiple": false,
-      "required": false,
-      "allowedTypes": [
-        "images"
-      ]
-    },
-    "image_3": {
-      "type": "media",
-      "multiple": false,
-      "required": false,
-      "allowedTypes": [
-        "images"
-      ]
-    },
-    "category": {
-      "type": "enumeration",
-      "enum": [
-        "mobile",
-        "accessories",
-        "wireless",
-        "sound"
-      ],
-      "required": false
-    },
     "slug": {
       "type": "string",
       "required": true
+    },
+    "category": {
+      "type": "string"
+    },
+    "image": {
+      "type": "string"
     }
   }
 }

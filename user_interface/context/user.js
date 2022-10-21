@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import { useState, createContext } from 'react';
 export const UserContext = createContext(null);
-import { linstance } from '../lib/api';
+import instance, { linstance } from '../lib/api';
 
 const UserProvider = ({ children }) => {
   const router = useRouter()
@@ -9,6 +9,8 @@ const UserProvider = ({ children }) => {
     var ret = ['niente'];
     try {
       const resp = await linstance.post('/api/auth/login', values);
+      console.log("hello")
+      console.log(resp);
       router.push('/user')
       return resp.data;
     } catch (error) {
@@ -77,9 +79,11 @@ const UserProvider = ({ children }) => {
   async function checkLogin() {
     try {
       const resp = await linstance.get('/api/auth/user');
+      // console.log(resp);
       setUser(resp.data.user);
       setEmail(resp.data.email);
       setId(resp.data.id);
+      setAdmin(resp.data.isAdmin);
       return resp;
     } catch (error) {
       return error.response;
@@ -89,6 +93,7 @@ const UserProvider = ({ children }) => {
   const [user, setUser] = useState();
   const [email, setEmail] = useState();
   const [id, setId] = useState();
+  const [admin, setAdmin] = useState();
   const [jwt, setJwt] = useState();
   const [loggingIn, setLoggingIn] = useState(false);
   const useract = {
@@ -110,6 +115,7 @@ const UserProvider = ({ children }) => {
     doFacebookCallback: doFacebookCallback,
     doRemind: doRemind,
     doReset: doReset,
+    admin: admin,
   };
   return (
     <UserContext.Provider value={useract}>{children}</UserContext.Provider>

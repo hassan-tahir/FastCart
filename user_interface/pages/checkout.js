@@ -1,5 +1,15 @@
-import {React, useState, useEffect} from 'react'
+import {React, useState, useContext, useEffect} from 'react'
+import { useRouter } from 'next/router'
+import { UserContext } from "../context/user";
+
 function Checkout({cart}) {
+  const router = useRouter()
+  const { user } = useContext(UserContext);
+  useEffect(() => {
+      if (!user) {
+          router.push('/');
+      }
+  }, [user])
   const [subTotal, setSubTotal] = useState(0)
   const [form, setForm] = useState({name:"",email:"",phone:"",address:""})
   useEffect(() => {

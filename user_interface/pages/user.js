@@ -5,13 +5,12 @@ import { UserContext } from "../context/user";
 function User() {
     const router = useRouter()
     const { user } = useContext(UserContext);
-    // useEffect(() => {
+    useEffect(() => {
         if (!user) {
-            router.push('/login');
+            router.push('/');
         }
-    // }, [])
+    }, [user])
     
-    
-  return <div>user</div>;
+  return <div>user </div>;
 }
 export default User;
