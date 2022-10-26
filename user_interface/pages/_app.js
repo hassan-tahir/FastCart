@@ -33,23 +33,23 @@ function MyApp({ Component, pageProps }) {
   };
 
   return (
-    <UserProvider>
-      <SnackbarProvider
-        hideIconVariant
-        ref={notiStackRef}
-        anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "right",
-        }}
-        TransitionComponent={Slide}
-        maxSnack={3}
-        autoHideDuration={3000}
-        action={(key) => (
-          <IconButton onClick={onClickDismiss(key)}>
-            <CloseIcon htmlColor="white" />
-          </IconButton>
-        )}
-      >
+    <SnackbarProvider
+      hideIconVariant
+      ref={notiStackRef}
+      anchorOrigin={{
+        vertical: "bottom",
+        horizontal: "right",
+      }}
+      TransitionComponent={Slide}
+      maxSnack={3}
+      autoHideDuration={3000}
+      action={(key) => (
+        <IconButton onClick={onClickDismiss(key)}>
+          <CloseIcon htmlColor="white" />
+        </IconButton>
+      )}
+    >
+      <UserProvider>
         <Navbar key={reloadKey} cart={cart} />{" "}
         <Component
           cart={cart}
@@ -58,8 +58,8 @@ function MyApp({ Component, pageProps }) {
           clearCart={clearCart}
           {...pageProps}
         />
-      </SnackbarProvider>
-    </UserProvider>
+      </UserProvider>
+    </SnackbarProvider>
   );
 }
 

@@ -1,17 +1,17 @@
 import { React, useEffect, useContext } from "react";
+import { useRouter } from 'next/router';
 import Link from "next/link";
 import { UserContext } from "../context/user";
 import AdminPanelSettingsOutlinedIcon from '@mui/icons-material/AdminPanelSettingsOutlined';
 import SettingsSuggestOutlinedIcon from '@mui/icons-material/SettingsSuggestOutlined';
 const Navbar = ({ cart }) => {
   const { user, admin, checkLogin, doLogout } = useContext(UserContext);
+  const Router = useRouter();
   useEffect(() => {
-    async function func() {
-      const res = await checkLogin();
-      if (res.status === 200) {
-      }
+    const functionCheck = async () => {
+      await checkLogin();
     }
-    func();
+    functionCheck();
   }, []);
   return (
     <header className="text-gray-600 body-font">

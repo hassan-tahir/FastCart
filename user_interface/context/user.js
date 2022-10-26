@@ -1,7 +1,12 @@
 import { useRouter } from 'next/router';
-import { useState, createContext } from 'react';
+import { useState, createContext, useEffect } from 'react';
+// import { token } from '../config/config';
+import {checkLogin} from '../DAL/user/checkLogin'
 export const UserContext = createContext(null);
 import instance, { linstance } from '../lib/api';
+import { useSnackbar } from 'notistack';
+import { set } from 'react-hook-form';
+import { token } from '../config/config';
 
 const UserProvider = ({ children }) => {
   const router = useRouter()
@@ -57,7 +62,9 @@ const UserProvider = ({ children }) => {
   async function doRegister(values) {
     var ret = ['niente'];
     try {
+      console.log(values);
       const resp = await linstance.post('/api/auth/register', values);
+      console.log(resp);
       return ['OK', resp.data.message];
     } catch (error) {
       return ['alert', error.response.data.message];
@@ -65,37 +72,56 @@ const UserProvider = ({ children }) => {
   }
 
   const doLogout = async () => {
-    const resp = await linstance.post('/api/auth/logout', {
-      method: 'POST',
-    });
-    if (resp.data.message == 'success') {
-      setUser('');
-      setEmail('');
-      setId('');
-      // router.push('/user/login');
-    }
+    // const resp = await linstance.post('/api/auth/logout', {
+    //   method: 'POST',
+    // });
+    // if (resp.data.message == 'success') {
+    //   setUser('');
+    //   setEmail('');
+    //   setId('');
+      localStorage.clear();
+      setUser();
+      router.push('/user/login');
+    // }
   };
 
-  async function checkLogin() {
-    try {
-      const resp = await linstance.get('/api/auth/user');
-      // console.log(resp);
-      setUser(resp.data.user);
-      setEmail(resp.data.email);
-      setId(resp.data.id);
-      setAdmin(resp.data.isAdmin);
-      return resp;
-    } catch (error) {
-      return error.response;
+  async function checkIfLogin() {
+    console.log(localStorage.getItem("token"));
+    try{
+      const response = await checkLogin();
+      console.log(response);
+      if(response.code==200){
+        setUser(response.data.username)
+        setEmail(response.data.email)
+        setId(response.data.id)
+        setAdmin(response.data.isAdmin)
+      } else {
+        enqueueSnackbar(response.message, {variant:'error'})
+      }
+    } catch(error){
+      console.log(error)
     }
+    // try {
+    //   const resp = await linstance.get('/api/auth/user');
+    //   console.log(resp);
+    //   setUser(resp.data.user);
+    //   setEmail(resp.data.email);
+    //   setId(resp.data.id);
+    //   setAdmin(resp.data.isAdmin);
+    //   return resp;
+    // } catch (error) {
+    //   return error.response;
+    // }
   }
 
   const [user, setUser] = useState();
   const [email, setEmail] = useState();
   const [id, setId] = useState();
   const [admin, setAdmin] = useState();
+  const [confirmed, setConfirmed] = useState();
   const [jwt, setJwt] = useState();
   const [loggingIn, setLoggingIn] = useState(false);
+  const {enqueueSnackbar} = useSnackbar();
   const useract = {
     user: user,
     setUser: setUser,
@@ -103,7 +129,7 @@ const UserProvider = ({ children }) => {
     doLogout: doLogout,
     doLogin: doLogin,
     setLoggingIn: setLoggingIn,
-    checkLogin: checkLogin,
+    checkLogin: checkIfLogin,
     jwt: jwt,
     setJwt: setJwt,
     email: email,
@@ -116,7 +142,15 @@ const UserProvider = ({ children }) => {
     doRemind: doRemind,
     doReset: doReset,
     admin: admin,
+    confirmed:confirmed,
   };
+  // useEffect(() => {
+  //   const func = async () => {
+  //     await checkIfLogin();
+  //   }
+  //   func();
+  // }, [])
+  
   return (
     <UserContext.Provider value={useract}>{children}</UserContext.Provider>
   );

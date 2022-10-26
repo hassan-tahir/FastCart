@@ -8,10 +8,10 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
-import UserMoreMenu from "./UserMoreMenu";
-import instance from "../../../lib/api";
+import UserMoreMenu from "../../components/UserMoreMenu";
+import instance from "../../../../lib/api";
 import { useRouter } from "next/router";
-import { deleteProduct } from "../../../DAL/products"; 
+import { getProducts, deleteProduct } from "../../../../DAL/products"; 
 import { useSnackbar } from "notistack";
 const columns = [
   { id: "image", label: "Image", minWidth: 170 },
@@ -40,21 +40,15 @@ export default function StickyHeadTable() {
   const [products, setProducts] = useState();
   const [change, setChange] = useState();
   useEffect(() => {
-    const getProducts = async () => {
-      let header = {
-        Authorization:
-          "Bearer b730f65dc102cef4d448a275393cf999ec567fcf46bb45278b33c3bee723c3b5471d5646a8280720f0e402c127e2e5e6ae955215bb5146ec534ec7a13ecaa71a5a35802b39f228df029593fdf88d42ff7aa706a50bd66a17582f8ea826d95fbd2b1a37d5a1439106d13965669c91cb35c38e0227e4b920e8cac44b800ff1e596",
-      };
-      const res = await instance.get(
-        "/api/products?populate=*",
-        {
-          headers: header,
-        }
-      );
-      setProducts(res.data.data);
+    const get_products = async () => {
+      const response = await getProducts();
+      if(response.code===200)
+      {
+        setProducts(response.data.data);
+      }
     };
-    getProducts();
-  }, [change]);
+    get_products();
+  }, []);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
@@ -81,6 +75,7 @@ export default function StickyHeadTable() {
   const handleEdit = (id) => {
     console.log("edit clicked");
   };
+  console.log(products);
   return (
     <Paper sx={{ width: "90%", overflow: "hidden", m: "auto" }}>
       
@@ -104,6 +99,7 @@ export default function StickyHeadTable() {
               products
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((product) => {
+                  console.log(product);
                   return (
                     <TableRow
                       hover
@@ -120,7 +116,7 @@ export default function StickyHeadTable() {
                       </TableCell>
                       <TableCell>{product.attributes.product_name}</TableCell>
                       <TableCell>
-                        {product.attributes.category}
+                        {/* {product.attributes.category} */}
                       </TableCell>
                       <TableCell>
                         {product.attributes.inventory_items}

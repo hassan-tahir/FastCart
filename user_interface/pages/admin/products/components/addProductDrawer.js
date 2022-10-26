@@ -2,8 +2,8 @@ import * as React from "react";
 import { useState, useEffect } from "react";
 import Drawer from "@mui/material/Drawer";
 import { Container } from "@mui/system";
-import { uploadImage } from "../../../DAL/files";
-import { addProduct } from "../../../DAL/products";
+import { uploadImage } from "../../../../DAL/files";
+import { addProduct } from "../../../../DAL/products";
 import { useSnackbar } from "notistack";
 import {
   FormControl,
@@ -16,7 +16,7 @@ import {
   InputAdornment,
   TextareaAutosize,
 } from "@mui/material";
-import instance from "../../../lib/api";
+import instance from "../../../../lib/api";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
 export default function AddProductDrawer({ openAddDrawer, setOpenAddDrawer }) {
   const {enqueueSnackbar} = useSnackbar();

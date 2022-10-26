@@ -20,12 +20,13 @@ export const invokeApi = async ({
 
     if( method === "POST" || method === "PUT" || method === "DELETE" )
     reqObj.data = postData;
-
+    console.log('<===Req-Object===>', reqObj)
     try {
         const response = await axios(reqObj);
         console.log('<===Api-Success===>', response);
         return {data:response.data, code:response.status};
     } catch(error) {
         console.log('<===Api-Error===>', error.response.data);
+        return { code:error.response.data.error.status, message:error.response.data.error.message};
     }
 }

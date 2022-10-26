@@ -3,7 +3,7 @@ import {token} from '../config/config';
 
 export const getProducts = async () => {
     const requestObj = {
-        path : '/api/products',
+        path : '/api/products?populate=*',
         method : 'GET',
         headers : {
             'Authorization' : token

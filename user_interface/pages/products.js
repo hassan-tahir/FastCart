@@ -1,6 +1,6 @@
 import Link from "next/link";
 import React from "react";
-
+import {token} from '../config/config';
 function products(props) {
   return (
     <div className="container mx-auto px-4">
@@ -42,9 +42,7 @@ function products(props) {
 }
 export async function getServerSideProps(context) {
   let header = {
-    Authorization:
-      "Bearer b730f65dc102cef4d448a275393cf999ec567fcf46bb45278b33c3bee723c3b5471d5646a8280720f0e402c127e2e5e6ae955215bb5146ec534ec7a13ecaa71a5a35802b39f228df029593fdf88d42ff7aa706a50bd66a17582f8ea826d95fbd2b1a37d5a1439106d13965669c91cb35c38e0227e4b920e8cac44b800ff1e596",
-  };
+    Authorization: token };
   let data = await fetch("http://localhost:1337/api/products?populate=*", {
     headers: header,
   });

@@ -15,13 +15,13 @@ module.exports = ({ env }) => ({
     },
     email: {
         config: {
-          provider: 'sendmail',
-          // providerOptions: {
-          //   apiKey: env('SENDGRID_API_KEY'),
-          // },
+          provider: 'sendgrid',
+          providerOptions: {
+            apiKey: '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',
+          },
           settings: {
-            defaultFrom: 'noreply@project.com',
-            defaultReplyTo: 'hassanch0089@gmail.com'
+            defaultFrom: 'bc190201464@vu.edu.pk',
+            defaultReplyTo: 'bc190201464@vu.edu.pk'
           },
         },
       },

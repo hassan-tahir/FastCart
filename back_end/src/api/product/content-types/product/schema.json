@@ -34,11 +34,14 @@
       "type": "string",
       "required": true
     },
-    "category": {
-      "type": "string"
-    },
     "image": {
       "type": "string"
+    },
+    "category": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::category.category",
+      "inversedBy": "products"
     }
   }
 }

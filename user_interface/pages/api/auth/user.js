@@ -1,6 +1,7 @@
 import axios from '../../../lib/api';
 import cookie from 'cookie';
 export default async (req, res) => {
+  console.log(res);
   if (req.method === 'GET') {
     const { token } = cookie.parse(req.headers.cookie);
     if (!token) {
@@ -17,6 +18,7 @@ export default async (req, res) => {
           user: response.data.username,
           email: response.data.email,
           id: response.data.id,
+          confirmed: response.data.confirmed,
           isAdmin: response.data.isAdmin,
         });
       })

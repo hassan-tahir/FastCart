@@ -9,11 +9,13 @@ export default async (req, res) => {
         },
       })
       .then((response) => {
-        return res.status(200).json({
+        console.log('response',response)
+        return response.status(200).json({
           message: `Check your email (${req.body.email}) and follow the instructions to confirm your account.`,
         });
       })
       .catch((error) => {
+        console.log(error);
         if (!error.response.data.error.message) {
           return res.status(500).json({ message: 'Internal server error' });
         } else {

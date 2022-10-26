@@ -3,22 +3,16 @@ import { React, useState, useContext, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { UserContext } from "../context/user";
 import {useRouter} from 'next/router'
+import {login} from '../DAL/user/login'
+import {useSnackbar} from 'notistack'
 
 function Login() {
-  //   const [data, setData] = useState({
-  //     email: "",
-  //     password: "",
-  //   });
-
-  // const changeHandler = (e) => {
-  //     setData({...data, [e.target.name]:e.target.value})
-  // }
   const router = useRouter()
   const { handleSubmit, register } = useForm();
-
+  const {enqueueSnackbar} = useSnackbar()
   const [alert, setAlert] = useState(["", ""]);
 
-  const { setUser, doLogin, loggingIn, setLoggingIn, user, admin } = useContext(UserContext);
+  const { setUser, doLogin, loggingIn, setLoggingIn, user, admin, confirmed } = useContext(UserContext);
   if(admin && user)
   {
     router.push('/admin')
@@ -27,17 +21,20 @@ function Login() {
   {
     router.push('/user')
   }
+  else if(user && !confirmed)
+  {
+    router.push('/confirmEmail')
+  }
   const onSubmit = async (values) => {
-    setLoggingIn(true);
-    const ret = await doLogin(values);
-    
-    if (ret[0] == "alert") {
-      setAlert(ret);
+    const response = await login(values);
+    if(response.code==200) {
+      setUser(response.data.user.username)
+      localStorage.setItem('token', response.data.jwt)
+      localStorage.setItem('user', JSON.stringify(response.data.user))
     } else {
-      setUser(ret.message.username);
+      enqueueSnackbar(response.message, {variant:'error'})
     }
-    setLoggingIn(false);
-  };
+  }
   return (
     <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="w-full max-w-md space-y-8">

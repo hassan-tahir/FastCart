@@ -1,25 +1,38 @@
-import { Grid } from "@mui/material";
-import BlogCard from "../../src/components/dashboard/BlogCard";
-import SalesOverview from "../../src/components/dashboard/SalesOverview";
-import DailyActivity from "../../src/components/dashboard/DailyActivity";
-import ProductPerfomance from "../../src/components/dashboard/ProductPerfomance";
+import Link from 'next/link'
+import {React, useContext, useEffect} from 'react'
+import { UserContext } from '../../context/user'
+import { useRouter } from 'next/router'
 
-export default function Index() {
-  return (
-    <Grid container spacing={0}>
-      <Grid item xs={12} lg={12}>
-        <SalesOverview />
-      </Grid>
-      {/* ------------------------- row 1 ------------------------- */}
-      <Grid item xs={12} lg={4}>
-        <DailyActivity />
-      </Grid>
-      <Grid item xs={12} lg={8}>
-        <ProductPerfomance />
-      </Grid>
-      <Grid item xs={12} lg={12}>
-        <BlogCard />
-      </Grid>
-    </Grid>
-  );
+function Admin() {
+  const router = useRouter();
+  const { user } = useContext(UserContext);
+    useEffect(() => {
+        if (!user) {
+            router.push('/login');
+        }
+    }, [user])
+  
+  return (<div className="container mx-auto">
+    <h1 className='font-bold text-3xl my-5'>Welcome to the Admin Panel of FastCart</h1>
+    <ul className='mt-10 text-xl'>
+      <li>
+        <Link href="admin/products/manageProducts">
+          <a>Manage Products</a>
+        </Link>
+        </li>
+        <li>
+        <Link href="admin/manageCategories">
+          <a>Manage Categories</a>
+        </Link>
+        </li>
+        <li>
+        <Link href="admin/manageUsers">
+          <a>Manage Users</a>
+        </Link>
+      </li>
+    </ul>
+  </div>
+  )
 }
+
+export default Admin
