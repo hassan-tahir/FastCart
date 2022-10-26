@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import { useState, createContext, useEffect } from 'react';
 // import { token } from '../config/config';
-import {checkLogin} from '../DAL/user/checkLogin'
+import {checkLogin} from '../DAL/user'
 export const UserContext = createContext(null);
 import instance, { linstance } from '../lib/api';
 import { useSnackbar } from 'notistack';

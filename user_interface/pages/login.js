@@ -3,7 +3,7 @@ import { React, useState, useContext, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { UserContext } from "../context/user";
 import {useRouter} from 'next/router'
-import {login} from '../DAL/user/login'
+import {login} from '../DAL/user'
 import {useSnackbar} from 'notistack'
 
 function Login() {

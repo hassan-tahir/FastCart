@@ -17,7 +17,7 @@ module.exports = ({ env }) => ({
         config: {
           provider: 'sendgrid',
           providerOptions: {
-            apiKey: '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',
+            apiKey: "SENDGRID KEY",
           },
           settings: {
             defaultFrom: 'bc190201464@vu.edu.pk',

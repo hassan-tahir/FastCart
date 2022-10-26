@@ -2,7 +2,10 @@ import React, { useContext, useState } from "react";
 import { useForm, reset } from "react-hook-form";
 import Link from "next/link";
 import { UserContext } from "../context/user";
+import {registerUser} from '../DAL/user';
+import {useSnackbar} from 'notistack';
 function Register() {
+  const {enqueueSnackbar} = useSnackbar();
   const { doRegister } = useContext(UserContext);
   const {
     register,
@@ -19,14 +22,21 @@ function Register() {
   const onSubmit = async (values) => {
     setIsSubmitting(true);
 
-    const ret = await doRegister(values);
-
-    if (ret[0] === "alert") {
-      setAlert(ret);
-    } else {
-      setAlert(ret);
-      reset();
+    const response = await registerUser(values);
+    console.log(response);
+    if(response.code==200){
+      enqueueSnackbar("Login successfull, Please verify Email address", {variant:"success"})
     }
+    else{
+      enqueueSnackbar(response.message, {variant:"error"})
+    }
+
+    // if (ret[0] === "alert") {
+    //   setAlert(ret);
+    // } else {
+    //   setAlert(ret);
+    //   reset();
+    // }
     setIsSubmitting(false);
   };
   return (
