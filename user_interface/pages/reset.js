@@ -1,6 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
-function Forgot() {
+function Reset() {
     return (
         <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
           <div className="w-full max-w-md space-y-8">
@@ -12,19 +12,22 @@ function Forgot() {
               </p>
             </div>
             <form className="mt-8 space-y-6" action="#" method="POST">
-              <input type="hidden" name="remember" value="true" />
               <div className="-space-y-px rounded-md shadow-sm">
                 <div>
-                  <label htmlFor="email-address" className="sr-only">Email address</label>
-                  <input id="email-address" name="email" type="email" autoComplete="email" required className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-orange-500 focus:outline-none focus:ring-orange-500 sm:text-sm" placeholder="Email address" />
+                  <label htmlFor="password" className="sr-only">New Password</label>
+                  <input id="password" name="password" type="password" autoComplete="password" required className="mb-3 relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-orange-500 focus:outline-none focus:ring-orange-500 sm:text-sm" placeholder="New Password" />
+                </div>
+                <div>
+                  <label htmlFor="confirm-password" className="sr-only">Confirm Password</label>
+                  <input id="confirm-password" name="confirm_password" type="password" autoComplete="password" required className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-orange-500 focus:outline-none focus:ring-orange-500 sm:text-sm" placeholder="Confirm Password" />
                 </div>
               </div>
         
-              <div className="flex items-center justify-between">
+              {/* <div className="flex items-center justify-between">
                 <div className="flex items-center text-sm">
                   A Password reset link will be sent to your registered Email address.
                 </div>
-              </div>
+              </div> */}
         
               <div>
                 <button type="submit" className="group relative flex w-full justify-center rounded-md border border-transparent bg-orange-600 py-2 px-4 text-sm font-medium text-white hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2">
@@ -33,7 +36,7 @@ function Forgot() {
                       <path fillRule="evenodd" d="M10 1a4.5 4.5 0 00-4.5 4.5V9H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-.5V5.5A4.5 4.5 0 0010 1zm3 8V5.5a3 3 0 10-6 0V9h6z" clipRule="evenodd" />
                     </svg>
                   </span>
-                  Proceed
+                  Reset Password
                 </button>
               </div>
             </form>
@@ -43,4 +46,4 @@ function Forgot() {
           )
 }
 
-export default Forgot
+export default Reset

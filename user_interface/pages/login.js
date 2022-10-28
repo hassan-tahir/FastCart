@@ -17,13 +17,9 @@ function Login() {
   {
     router.push('/admin')
   }
-  if(user && !admin)
+  else if(user && !admin)
   {
-    router.push('/user')
-  }
-  else if(user && !confirmed)
-  {
-    router.push('/confirmEmail')
+    router.push('/')
   }
   const onSubmit = async (values) => {
     const response = await login(values);
@@ -91,7 +87,7 @@ function Login() {
           </div>
 
           <div className="flex items-center justify-between">
-            <div className="flex items-center">
+            {/* <div className="flex items-center">
               <input
                 id="remember-me"
                 name="remember-me"
@@ -104,7 +100,7 @@ function Login() {
               >
                 Remember me
               </label>
-            </div>
+            </div> */}
 
             <div className="text-sm">
               <Link href="/forgot">

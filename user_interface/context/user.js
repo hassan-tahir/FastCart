@@ -81,23 +81,22 @@ const UserProvider = ({ children }) => {
     //   setId('');
       localStorage.clear();
       setUser();
-      router.push('/user/login');
+      router.push('/login');
     // }
   };
 
-  async function checkIfLogin() {
-    console.log(localStorage.getItem("token"));
+  async function checkIfLogin(error) {
     try{
       const response = await checkLogin();
-      console.log(response);
       if(response.code==200){
         setUser(response.data.username)
         setEmail(response.data.email)
         setId(response.data.id)
         setAdmin(response.data.isAdmin)
       } else {
+        if(error){
         enqueueSnackbar(response.message, {variant:'error'})
-      }
+      }}
     } catch(error){
       console.log(error)
     }

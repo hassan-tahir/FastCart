@@ -25,7 +25,7 @@ function Register() {
     const response = await registerUser(values);
     console.log(response);
     if(response.code==200){
-      enqueueSnackbar("Login successfull, Please verify Email address", {variant:"success"})
+      enqueueSnackbar("Account created successfully, Please verify Email address", {variant:"success"})
     }
     else{
       enqueueSnackbar(response.message, {variant:"error"})

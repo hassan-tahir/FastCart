@@ -1,16 +1,17 @@
 import { React, useEffect, useContext } from "react";
-import { useRouter } from 'next/router';
+import { useRouter } from "next/router";
 import Link from "next/link";
 import { UserContext } from "../context/user";
-import AdminPanelSettingsOutlinedIcon from '@mui/icons-material/AdminPanelSettingsOutlined';
-import SettingsSuggestOutlinedIcon from '@mui/icons-material/SettingsSuggestOutlined';
+import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
+import SettingsSuggestOutlinedIcon from "@mui/icons-material/SettingsSuggestOutlined";
 const Navbar = ({ cart }) => {
   const { user, admin, checkLogin, doLogout } = useContext(UserContext);
   const Router = useRouter();
   useEffect(() => {
     const functionCheck = async () => {
-      await checkLogin();
-    }
+      //pass true to show error msg or false to not to, we are not showing in navbar because it runs even thar user is not logged in so it displays error with every render
+      await checkLogin(false);
+    };
     functionCheck();
   }, []);
   return (
@@ -32,7 +33,7 @@ const Navbar = ({ cart }) => {
           <Link href="/categories">
             <a className="mr-5 hover:text-gray-900">Categories</a>
           </Link>
-          {(!admin && user) && (
+          {!admin && user && (
             <Link href="/cart">
               <a className="mr-5 hover:text-gray-900">Cart({cart.length})</a>
             </Link>
@@ -58,22 +59,20 @@ const Navbar = ({ cart }) => {
                     />
                   </svg>
                 )}
-                {
-                  admin && <AdminPanelSettingsOutlinedIcon />
-                }
+                {admin && <AdminPanelSettingsOutlinedIcon />}
               </a>
             </Link>
           )}
-          {(user && admin) && 
-          <Link href="/admin">
-            <button
-              className="mr-5 inline-flex text-white border-0 py-1 px-2 md:px-4 focus:outline-none rounded text-md my-2"
-              style={{ backgroundColor: "#f0661f" }}
-            >
-              Admin <SettingsSuggestOutlinedIcon />
-            </button>
-          </Link>
-          }
+          {user && admin && (
+            <Link href="/admin">
+              <button
+                className="mr-5 inline-flex text-white border-0 py-1 px-2 md:px-4 focus:outline-none rounded text-md my-2"
+                style={{ backgroundColor: "#f0661f" }}
+              >
+                Admin <SettingsSuggestOutlinedIcon />
+              </button>
+            </Link>
+          )}
         </nav>
         {!user && (
           <Link href="/login">
